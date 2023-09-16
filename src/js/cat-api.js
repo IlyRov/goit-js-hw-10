@@ -14,13 +14,13 @@ export async function fetchBreeds() {
 export async function fetchCatByBreed(breedId) {
     try {
         const response = await axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`);
-        const catInfo = response.data[0];
+        const catInfo = response.data[0].breeds[0]; // Отримуємо інформацію про породу
 
         return {
-            breed: catInfo.breeds[0]?.name || "Інформація про породу відсутня",
-            description: catInfo.breeds[0]?.description || "Опис відсутній",
-            temperament: catInfo.breeds[0]?.temperament || "Темперамент відсутній",
-            imageUrl: catInfo.url || ""
+            breed: catInfo.name || "Інформація про породу відсутня",
+            description: catInfo.description || "Опис відсутній",
+            temperament: catInfo.temperament || "Темперамент відсутній",
+            imageUrl: response.data[0].url || ""
         };
     } catch (error) {
         throw error;
