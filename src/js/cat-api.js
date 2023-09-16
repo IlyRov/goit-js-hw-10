@@ -4,14 +4,12 @@ import axios from "axios";
 export async function fetchBreeds() {
     try {
         const response = await axios.get("https://api.thecatapi.com/v1/breeds");
-        return response.data.map(breed => ({
-            id: breed.id,
-            name: breed.name
-        }));
+        return response.data;
     } catch (error) {
         throw error;
     }
 }
+
 
 export async function fetchCatByBreed(breedId) {
     try {
