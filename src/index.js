@@ -17,27 +17,32 @@ function clearCatInfo() {
     catImage.alt = "";
 }
 
-breedSelect.addEventListener("change", async () => {
+// Оновлення інформації про кота
+function updateCatInfo(breedId) {
+    clearCatInfo();
+
+    fetchCatByBreed(breedId)
+        .then((catData) => {
+            catBreed.textContent = catData.breed;
+            catDescription.textContent = catData.description;
+            catTemperament.textContent = catData.temperament;
+            catImage.src = catData.imageUrl;
+            catImage.alt = `Зображення кота породи ${catData.breed}`;
+        })
+        .catch((error) => {
+            console.error("Помилка під час завантаження інформації про кота.", error);
+            errorText.style.display = "block";
+        });
+}
+
+breedSelect.addEventListener("change", () => {
     const selectedBreedId = breedSelect.value;
 
-    try {
-        loader.style.display = "block";
-        catInfoDiv.style.display = "none";
+    loader.style.display = "block";
+    catInfoDiv.style.display = "none";
 
-        const catData = await fetchCatByBreed(selectedBreedId);
-
-        catBreed.textContent = catData.breed;
-        catDescription.textContent = catData.description;
-        catTemperament.textContent = catData.temperament;
-        catImage.src = catData.imageUrl;
-        catImage.alt = `Зображення кота породи ${catData.breed}`;
-
-        loader.style.display = "none";
-        catInfoDiv.style.display = "block";
-    } catch (error) {
-        console.error("Помилка під час завантаження інформації про кота.", error);
-        errorText.style.display = "block";
-    }
+    // Викликаємо функцію оновлення інформації про кота при зміні вибору породи
+    updateCatInfo(selectedBreedId);
 });
 
 async function initBreedList() {
@@ -45,7 +50,7 @@ async function initBreedList() {
         loader.style.display = "block";
         const breeds = await fetchBreeds();
 
-        breeds.forEach(breed => {
+        breeds.forEach((breed) => {
             const option = document.createElement("option");
             option.value = breed.id;
             option.textContent = breed.name;
