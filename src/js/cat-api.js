@@ -17,10 +17,10 @@ export async function fetchCatByBreed(breedId) {
         const catInfo = response.data[0];
 
         return {
-            breed: catInfo.breeds[0].name,
-            description: catInfo.breeds[0].description,
-            temperament: catInfo.breeds[0].temperament,
-            imageUrl: catInfo.url
+            breed: catInfo.breeds[0]?.name || "Інформація про породу відсутня",
+            description: catInfo.breeds[0]?.description || "Опис відсутній",
+            temperament: catInfo.breeds[0]?.temperament || "Темперамент відсутній",
+            imageUrl: catInfo.url || ""
         };
     } catch (error) {
         throw error;

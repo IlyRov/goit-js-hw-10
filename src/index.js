@@ -59,5 +59,4 @@ async function initBreedList() {
     }
 }
 
-
 initBreedList();
