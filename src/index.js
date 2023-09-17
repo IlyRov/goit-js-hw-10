@@ -38,7 +38,7 @@ function updateCatInfo(breedId) {
 breedSelect.addEventListener("change", () => {
     const selectedBreedId = breedSelect.value;
 
-    loader.style.display = "block";
+    loader.style.display = "none";
     // catInfoDiv.style.display = "none";
 
 
