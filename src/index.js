@@ -39,6 +39,8 @@ breedSelect.addEventListener("change", () => {
     const selectedBreedId = breedSelect.value;
 
     loader.style.display = "block";
+    // catInfoDiv.style.display = "none";
+
 
     // Викликаємо функцію оновлення інформації про кота при зміні вибору породи
     updateCatInfo(selectedBreedId);
